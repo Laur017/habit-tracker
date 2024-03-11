@@ -1,0 +1,12 @@
+.landing-btn{
+    border: 1px solid #232323;
+    padding: 0.5rem 2rem;
+    transition: all 0.3s ease-in;
+
+}
+
+.landing-btn:hover{
+    border-radius: 0.5rem;
+    color: green;
+    border: 1px solid green;
+}
