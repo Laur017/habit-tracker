@@ -1,0 +1,25 @@
+.main-dashboard{
+    height: 100%;
+}
+
+.left-pannel{
+    background-color: white;
+    height: 100%;
+    padding: 1rem;
+    justify-content: space-between;
+
+
+}
+
+.left-pannel > div:nth-child(2){
+    border-top: 1px solid #e8e8e8;
+    padding: 1rem 0;
+}
+
+.left-btns{
+    
+    button{
+        padding: 0.5rem;
+        text-align: left;
+    }
+}

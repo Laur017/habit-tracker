@@ -1,22 +1,23 @@
 import Image from '../assets/home-img.jpg';
 import axios from 'axios';
-import { useGoogleLogin, googleLogout } from '@react-oauth/google';
+import { useGoogleLogin} from '@react-oauth/google';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Landing() {
   const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const navigate = useNavigate()
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) =>setUser(codeResponse),
     onError: (error) => console.log('Login Failed:', error),
   });
 
-  const logOut = () => {
-    googleLogout();
-    setUser(null);
-    setProfile(null);
-  };
+  // const logOut = () => {
+  //   googleLogout();
+  //   setUser(null);
+  //   setProfile(null);
+  // };
 
   useEffect(() => {
     if (user ) {
@@ -28,11 +29,17 @@ export default function Landing() {
           },
         })
         .then((res) => {
-          setProfile(res.data);
+          if (res.data.name) {
+            console.log(res.data.name);
+            navigate(`/dashboard/${res.data.name}`);
+          } else {
+            console.log('Name not available');
+          }  
         })
         .catch((err) => console.log(err));
     }
-  }, [user]);
+  }, [user, navigate]);
+
 
   return (
     <div className="div-landing flex flex-col items-center mt-[2rem]">
@@ -50,15 +57,6 @@ export default function Landing() {
         </div>
         <img src={Image} alt="Habit Tracker" className="w-[40%]" />
       </div>
-      {profile && (
-        <div>
-          <img src={profile.picture} alt="user image" />
-          <h3>User Logged in</h3>
-          <p>Name: {profile.name}</p>
-          <p>Email Address: {profile.email}</p>
-          <button onClick={logOut}>Log out</button>
-        </div>
-      )}
     </div>
   );
 }

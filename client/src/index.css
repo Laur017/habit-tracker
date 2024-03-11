@@ -8,4 +8,9 @@ body{
     padding: 0;
     background-color: #e8e8e8;
     font-family: "Roboto Mono", monospace;
+    height: 100vh;
+}
+
+#root{
+    height: 100%;
 }
