@@ -122,7 +122,7 @@
 }
 
 .selected-color{
-    border: 1px solid #23232373 !important;
+    border: 1px solid #232323 !important;
 }
 
 .colors > span:nth-child(1){
@@ -170,4 +170,36 @@
 .add-habit-card > input {
     margin: 1rem 0;
     border-bottom: 1px solid #5db5fc;
+    padding-left: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.bottom-hab-div span{
+        width: 1rem !important;
+        height: 100% !important;
+}
+
+.first-col{
+    background-color: #CDF5F6 !important;
+}
+.second-col{
+    background-color: #EFF9DA !important;
+}
+.third-col{
+    background-color: #F9EBDF !important;
+}
+.fourth-col{
+    background-color: #F9D8D6 !important;
+}
+.fifth-col{
+    background-color: #D6CDEA !important;
+}
+
+.habits-list-div{
+    background-color: white;
+    height: 3rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    justify-content: space-between;
+    padding-right: 1rem;
 }
