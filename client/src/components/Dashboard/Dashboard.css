@@ -35,3 +35,34 @@
     color: white;
     border-radius: 5px;
 }
+
+.top-dash {
+    justify-content: space-between;
+
+    h2{
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    h4{
+        font-size: 1.25rem;
+        padding: 0;
+        margin: 0;
+        color: rgb(92, 92, 92);
+    }
+}
+
+.add-hab-btn{
+    background-color: #5db5fc;
+    padding: 0.5rem 2rem;
+    color: white;
+    border-radius: 5px;
+    transition: all 0.5s ease-in;
+}
+
+.add-hab-btn:hover{
+    background-color: #4795d5;
+}
