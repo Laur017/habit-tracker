@@ -36,7 +36,7 @@
     border-radius: 5px;
 }
 
-.top-dash {
+.top-dash{
     justify-content: space-between;
 
     h2{
@@ -65,4 +65,109 @@
 
 .add-hab-btn:hover{
     background-color: #4795d5;
+}
+
+.top-hab-div{
+    justify-content: space-between;
+    align-items: center;
+
+    h2{
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 0;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+}
+
+.blur-div{
+    background-color: #2323235b;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/*
+    Add Habit Card 
+*/
+
+.add-habit-card{
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    h3{
+        font-weight:600;
+        letter-spacing: 2px;
+        font-size: 1.1rem;
+    }
+}
+
+.colors{
+    margin: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.colors > span{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.selected-color{
+    border: 1px solid #23232373 !important;
+}
+
+.colors > span:nth-child(1){
+    background-color: #CDF5F6;
+    border: 1px solid #CDF5F6;
+}
+.colors > span:nth-child(2){
+    background-color: #EFF9DA;
+    border: 1px solid #EFF9DA;
+}
+.colors > span:nth-child(3){
+    background-color: #F9EBDF;
+    border: 1px solid #F9EBDF;
+}
+.colors > span:nth-child(4){
+    background-color: #F9D8D6;
+    border: 1px solid #F9D8D6;
+}
+.colors > span:nth-child(5){
+    background-color: #D6CDEA;
+    border: 1px solid #D6CDEA;
+}
+
+.add-card-btns{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    button{
+        width: 48%;
+        border: 1px solid #232323;
+        padding: 0.25rem 1rem;
+        letter-spacing: 1px;
+        
+    }
+
+    button:nth-child(2){
+        background-color: #5db5fc;
+        color: white;
+        border: 1px solid #5db5fc;
+        border-radius: 5px;
+    }
+}
+
+.add-habit-card > input {
+    margin: 1rem 0;
+    border-bottom: 1px solid #5db5fc;
 }
