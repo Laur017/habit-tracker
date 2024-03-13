@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import Bin from '../../assets/icons/bin.png'
 import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
@@ -36,7 +36,7 @@ export default function Habits() {
 
     }
 
-    const handleEdit = (hab:string, col:number, indx:number) =>{
+    const handleEdit = (hab:string, col:number, indx:number) => {
       setIndxToEdit(indx)
       setHbt(hab)
       setClr(col)
@@ -44,9 +44,13 @@ export default function Habits() {
       setAddBtn(true)
     }
 
-    useEffect(() => {
-      console.log(habits)
-    },[habits])
+    const handleDelete = (indx:number) => {
+      
+      const updatedHabits = [...habits.slice(0, indx), ...habits.slice(indx + 1)];
+      setHabits(updatedHabits);
+      
+    }
+
 
   return (
     <div className="h-[100%] w-[100%]">
@@ -77,7 +81,7 @@ export default function Habits() {
                   </div>
                   <div className='flex items-center gap-[1rem]'>
                     <img src={Edit} className='w-[1.5rem] cursor-pointer' onClick={() => handleEdit(i.habit, i.color, indx)}/>
-                    <img src={Bin} className='w-[1.5rem] cursor-pointer' />
+                    <img src={Bin} className='w-[1.5rem] cursor-pointer' onClick={() => handleDelete(indx)}/>
                   </div>
                 </div>)}
               </div>  
