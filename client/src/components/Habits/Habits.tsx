@@ -1,4 +1,4 @@
-import {useState } from 'react';
+import { useState, useRef } from 'react';
 import Bin from '../../assets/icons/bin.png'
 import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
@@ -7,6 +7,9 @@ import AddHabitCard from './AddHabitCard';
 import { useParams } from "react-router-dom";
 
 export default function Habits() {
+
+    const dragItem = useRef()
+    const dragOverItem = useRef()
     const { name} = useParams()
     const [addBtn, setAddBtn] = useState<boolean>(false)
     const [habits, setHabits] = useState<{habit:string, color:number}[]>([])
@@ -14,6 +17,25 @@ export default function Habits() {
     const [clr, setClr] = useState<number>(1)
     const [edit, setEdit] = useState<boolean>(false)
     const [indxToEdit, setIndxToEdit] = useState<number>(0)
+
+    const dragStart = (position) => {
+      dragItem.current = position
+    }
+
+    const dragEnter = (position) => {
+      dragOverItem.current = position
+  
+    }
+
+    const drop = () => {
+      const copyListItems = [...habits]
+      const dragItemContent = copyListItems[dragItem.current]
+      copyListItems.splice(dragItem.current, 1)
+      copyListItems.splice(dragOverItem.current, 0, dragItemContent)
+      dragItem.current = null
+      dragOverItem.current = null
+      setHabits(copyListItems)
+    }
 
     const toggleAddHabit = (t:number,hab:string,col:number) => {
       if(t === 1)
@@ -48,7 +70,7 @@ export default function Habits() {
       
       const updatedHabits = [...habits.slice(0, indx), ...habits.slice(indx + 1)];
       setHabits(updatedHabits);
-      
+
     }
 
 
@@ -65,7 +87,11 @@ export default function Habits() {
               {habits && 
               <div className='bottom-hab-div mt-[5%] flex flex-col gap-[1rem]'>
                 {habits.map((i,indx) => 
-                <div className='habits-list-div flex items-center' key={indx}>
+                <div className='habits-list-div flex items-center' key={indx} 
+                onDragStart={() => dragStart(indx)}
+                onDragEnter={() => dragEnter(indx)}
+                onDragEnd={drop}
+                draggable>
                   <div className='flex items-center gap-[1rem] h-[100%]'>
                   <span 
                   className=
