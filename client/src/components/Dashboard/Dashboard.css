@@ -177,6 +177,7 @@
 .bottom-hab-div span{
         width: 1rem !important;
         height: 100% !important;
+        border-radius: 5px 0 0 5px;
 }
 
 .first-col{
@@ -202,4 +203,5 @@
     letter-spacing: 1px;
     justify-content: space-between;
     padding-right: 1rem;
+    border-radius: 5px;
 }

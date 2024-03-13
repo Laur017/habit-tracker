@@ -10,16 +10,38 @@ export default function Habits() {
     const { name} = useParams()
     const [addBtn, setAddBtn] = useState<boolean>(false)
     const [habits, setHabits] = useState<{habit:string, color:number}[]>([])
+    const [hbt, setHbt] = useState<string>('')
+    const [clr, setClr] = useState<number>(1)
+    const [edit, setEdit] = useState<boolean>(false)
+    const [indxToEdit, setIndxToEdit] = useState<number>(0)
 
     const toggleAddHabit = (t:number,hab:string,col:number) => {
       if(t === 1)
         setAddBtn(false)
       if(t === 2){
-        const aux = habits;
+        const aux = habits
         aux.push({habit:hab,color:col})
         setHabits(aux)
         setAddBtn(false)
+      } else if(t === 3){
+        const aux = habits
+        aux[indxToEdit].habit = hab
+        aux[indxToEdit].color = col
+        setHabits(aux)
+        setHbt('')
+        setClr(1)
+        setEdit(false)
+        setAddBtn(false)
       }
+
+    }
+
+    const handleEdit = (hab:string, col:number, indx:number) =>{
+      setIndxToEdit(indx)
+      setHbt(hab)
+      setClr(col)
+      setEdit(true)
+      setAddBtn(true)
     }
 
     useEffect(() => {
@@ -38,8 +60,8 @@ export default function Habits() {
               </div>
               {habits && 
               <div className='bottom-hab-div mt-[5%] flex flex-col gap-[1rem]'>
-                {habits.map(i => 
-                <div className='habits-list-div flex items-center'>
+                {habits.map((i,indx) => 
+                <div className='habits-list-div flex items-center' key={indx}>
                   <div className='flex items-center gap-[1rem] h-[100%]'>
                   <span 
                   className=
@@ -54,7 +76,7 @@ export default function Habits() {
                   {i.habit}
                   </div>
                   <div className='flex items-center gap-[1rem]'>
-                    <img src={Edit} className='w-[1.5rem] cursor-pointer' />
+                    <img src={Edit} className='w-[1.5rem] cursor-pointer' onClick={() => handleEdit(i.habit, i.color, indx)}/>
                     <img src={Bin} className='w-[1.5rem] cursor-pointer' />
                   </div>
                 </div>)}
@@ -65,7 +87,7 @@ export default function Habits() {
         }
         {addBtn && 
           <div className='blur-div flex justify-center items-center'>
-            <AddHabitCard toggleAddHabit = {toggleAddHabit}/>
+            <AddHabitCard toggleAddHabit = {toggleAddHabit} hbt = {hbt} clr = {clr} edt = {edit}/>
           </div>
 
 

@@ -1,8 +1,17 @@
 import { useState } from "react"
 
-export default function AddHabitCard({toggleAddHabit}) {
-    const [selectedColor, setSelectedColor] = useState<number>(1)
-    const [habit, setHabit] = useState<string>()
+interface Props {
+  toggleAddHabit(a:number, b:string, c:number):void,
+  hbt:string,
+  clr:number,
+  edt:boolean
+
+}
+
+export default function AddHabitCard({toggleAddHabit, hbt, clr, edt}:Props) {
+    const [selectedColor, setSelectedColor] = useState<number>(clr)
+    const [habit, setHabit] = useState<string>(hbt)
+
   return (
     <div className="add-habit-card flex flex-col">
         <h3>Let's add a new habit !</h3>
@@ -15,8 +24,8 @@ export default function AddHabitCard({toggleAddHabit}) {
             <span className={`${selectedColor === 5 ? 'selected-color' : ''}`} onClick={() => setSelectedColor(5)}></span>
         </div>
         <div className="add-card-btns">
-            <button onClick={() => toggleAddHabit(1,"","")}>Cancel</button>
-            <button onClick={() => toggleAddHabit(2,habit,selectedColor)}>Add</button>
+            <button onClick={() => toggleAddHabit(1,"",9)}>Cancel</button>
+            <button onClick={() => edt ?toggleAddHabit(3,habit,selectedColor) :toggleAddHabit(2,habit,selectedColor)}>{edt ? 'Save' : 'Add'}</button>
         </div>
     </div>
   )
