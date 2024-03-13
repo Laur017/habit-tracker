@@ -110,6 +110,7 @@ export default function Habits() {
                     <img src={Bin} className='w-[1.5rem] cursor-pointer' onClick={() => handleDelete(indx)}/>
                   </div>
                 </div>)}
+                <button className='save-changes-btn'>Save Changes</button>
               </div>  
               }
             </div>

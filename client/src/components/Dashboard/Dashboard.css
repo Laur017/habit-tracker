@@ -178,6 +178,12 @@
         width: 1rem !important;
         height: 100% !important;
         border-radius: 5px 0 0 5px;
+        
+}
+
+.bottom-hab-div {
+    align-items: center;
+    
 }
 
 .first-col{
@@ -197,6 +203,7 @@
 }
 
 .habits-list-div{
+    width: 100%;
     background-color: white;
     height: 3rem;
     font-size: 1.5rem;
@@ -205,4 +212,20 @@
     padding-right: 1rem;
     border-radius: 5px;
     cursor: move;
+}
+
+.save-changes-btn{
+    border: 1px solid #232323;
+    padding: 0.5rem 0;
+    width: 40%;
+    color: white;
+    background-color: #232323;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    transition: all 0.5s ease;
+}
+
+.save-changes-btn:hover{
+    background-color: rgba(1, 178, 1, 0.546);
+    border: 1px solid rgba(1, 178, 1, 0.546);
 }
