@@ -6,7 +6,7 @@ import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
 import { useParams } from "react-router-dom"
 import { collection, addDoc } from 'firebase/firestore'
-import { db } from '../../firebase.js'
+import { db } from '../../firebase'
 
 export default function Habits() {
 
@@ -77,6 +77,19 @@ export default function Habits() {
 
     const addToDb = async (e) => {
       e.preventDefault()
+
+      try{
+        const docRef = await addDoc(collection(db, "habits"), {
+          user: '001',
+          habit: 'eat',
+          order: 1,
+          date: 14,
+          checked: false
+        });
+        console.log("Document written with ID: ", docRef.id)
+      } catch (e) {
+        console.log("Error adding document: ", e)
+      }
     }
 
 
