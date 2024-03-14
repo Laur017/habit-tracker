@@ -1,10 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from 'react'
 import Bin from '../../assets/icons/bin.png'
 import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
-import Left from "../Dashboard/Left";
-import AddHabitCard from './AddHabitCard';
-import { useParams } from "react-router-dom";
+import Left from "../Dashboard/Left"
+import AddHabitCard from './AddHabitCard'
+import { useParams } from "react-router-dom"
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../../firebase.js'
 
 export default function Habits() {
 
@@ -73,6 +75,10 @@ export default function Habits() {
 
     }
 
+    const addToDb = async (e) => {
+      e.preventDefault()
+    }
+
 
   return (
     <div className="h-[100%] w-[100%]">
@@ -110,7 +116,7 @@ export default function Habits() {
                     <img src={Bin} className='w-[1.5rem] cursor-pointer' onClick={() => handleDelete(indx)}/>
                   </div>
                 </div>)}
-                <button className='save-changes-btn'>Save Changes</button>
+                <button className='save-changes-btn' onClick={(e) => addToDb(e)}>Save Changes</button>
               </div>  
               }
             </div>
