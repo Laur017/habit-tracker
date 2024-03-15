@@ -9,16 +9,17 @@ import { useNavigate } from 'react-router-dom'
 
 interface Props {
     name:string,
-    pannel:number
+    pannel:number,
+    data:any
 }
 
 type active = 1 | 2 | 3
 
-export default function Left({name, pannel}:Props) {
+export default function Left({name, pannel,data}:Props) {
     const navigate = useNavigate()
 
     const handlePannel = (n:active) => {
-        n === 1 ? navigate(`/dashboard/${name}`) : navigate(`/habits/${name}`)
+        n === 1 ? navigate(`/dashboard/${name}`, { state: { data: data } }) : navigate(`/habits/${name}`, { state: { data: data } })
     }
   return (
     <div className="w-[20%] left-pannel flex flex-col h-[100%]">

@@ -4,12 +4,14 @@ import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
 import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
-import { useParams } from "react-router-dom"
+import { useParams, useLocation } from "react-router-dom"
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 
 export default function Habits() {
-
+    const location = useLocation();
+    const data = location.state?.data;
+    console.log("h", data)
     const dragItem = useRef()
     const dragOverItem = useRef()
     const { name} = useParams()
@@ -97,10 +99,10 @@ export default function Habits() {
     <div className="h-[100%] w-[100%]">
         {name && 
         <div className="flex h-[100%] w-[100%]">
-            <Left name={name} pannel={2} />
+            <Left name={name} pannel={2} data ={data}/>
             <div className="habits-div p-[5%] w-[80%]">
               <div className="top-hab-div flex w-[100%]">
-                <h2>Habits List</h2>
+                <h2>Habits List {data && data.name}</h2>
                 <button className='add-hab-btn' onClick={() => setAddBtn(true)}>+ Add Habit</button>
               </div>
               {habits && 

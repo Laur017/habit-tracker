@@ -30,8 +30,8 @@ export default function Landing() {
         })
         .then((res) => {
           if (res.data.name) {
-            console.log(res.data.name);
-            navigate(`/dashboard/${res.data.name}`);
+            console.log(res.data);
+            navigate(`/dashboard/${res.data.name}`, { state: { data: res.data } });
           } else {
             console.log('Name not available');
           }  
