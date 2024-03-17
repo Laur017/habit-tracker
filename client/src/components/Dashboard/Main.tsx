@@ -9,15 +9,16 @@ export default function Main() {
   const location = useLocation();
   const data = location.state?.data;
 
+
   console.log("Data:", data);
 
   return (
     <div className="main-dashboard">
       {name &&
         <div className='flex h-[100%]'>
-        <Left name={name} pannel={1} data = {data}/>
-        <Mid />
-        <Right />
+          <Left name={name} pannel={1} data={data} />
+          <Mid />
+          <Right />
         </div>
       }
     </div>
