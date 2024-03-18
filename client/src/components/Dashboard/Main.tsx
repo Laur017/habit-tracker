@@ -9,7 +9,6 @@ export default function Main() {
   const location = useLocation();
   const data = location.state?.data;
 
-
   console.log("Data:", data);
 
   return (
