@@ -8,6 +8,7 @@ export default function Main() {
   const { name } = useParams();
   const location = useLocation();
   const data = location.state?.data;
+
   console.log("Data:", data);
 
   return (
