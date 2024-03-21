@@ -1,21 +1,50 @@
 import './Dashboard.css'
 import Left from "./Left";
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Mid from './Mid';
 import Right from './Right';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 export default function Main() {
-  const { name } = useParams();
-  const location = useLocation();
-  const data = location.state?.data;
+  const { access_token } = useParams();
+  const [user,setUser] = useState();
+  console.log(access_token)
+  
+  useEffect(() => {
+    axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data.name);
+            setUser(res.data)
+          } else {
+            console.log('Name not available');
+          }  
+        })
+        .catch((err) => console.log(err));
+  },[access_token])
 
-  console.log("Data:", data);
+  useEffect(() => {
+    console.log(user)
+  },[user])
 
   return (
     <div className="main-dashboard">
-      {name &&
+      {user &&
         <div className='flex h-[100%]'>
-          <Left name={name} pannel={1} data={data} />
+          <Left 
+            access_token={access_token} 
+            name={user.name} 
+            pannel={1}
+            img={user.picture}
+
+          />
           <Mid />
           <Right />
         </div>

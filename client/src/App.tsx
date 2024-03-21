@@ -11,8 +11,8 @@ function App() {
 
       <Routes location={location} key={location.pathname}>
           <Route index element={<Landing />} />
-          <Route path='/dashboard/:name' element={<Main />} />
-          <Route path='/habits/:name' element={<Habits />} />
+          <Route path='/dashboard/:access_token' element={<Main />} />
+          <Route path='/habits/:access_token' element={<Habits />} />
       </Routes>
     </div>
   )

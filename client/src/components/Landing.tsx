@@ -1,5 +1,4 @@
 import Image from '../assets/home-img.jpg';
-import axios from 'axios';
 import { useGoogleLogin} from '@react-oauth/google';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -20,25 +19,8 @@ export default function Landing() {
   // };
 
   useEffect(() => {
-    if (user ) {
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json',
-          },
-        })
-        .then((res) => {
-          if (res.data.name) {
-            console.log(res.data);
-            navigate(`/dashboard/${res.data.name}`, { state: { data: res.data } });
-          } else {
-            console.log('Name not available');
-          }  
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user, navigate]);
+    user && navigate(`/dashboard/${user.access_token}`)
+  }, [user]);
 
 
   return (

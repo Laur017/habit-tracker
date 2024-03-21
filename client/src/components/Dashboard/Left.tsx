@@ -8,18 +8,19 @@ import Setta from '../../assets/icons/setting-a.png'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {
-    name:string,
+    access_token:string
     pannel:number,
-    data:any
+    name:string,
+    img:string
 }
 
 type active = 1 | 2 | 3
 
-export default function Left({name, pannel,data}:Props) {
+export default function Left({access_token, pannel,name,img}:Props) {
     const navigate = useNavigate()
 
     const handlePannel = (n:active) => {
-        n === 1 ? navigate(`/dashboard/${name}`, { state: { data: data } }) : navigate(`/habits/${name}`, { state: { data: data } })
+        n === 1 ? navigate(`/dashboard/${access_token}`) : navigate(`/habits/${access_token}`)
     }
   return (
     <div className="w-[20%] left-pannel flex flex-col h-[100%]">
@@ -32,7 +33,8 @@ export default function Left({name, pannel,data}:Props) {
             </div>
         </div>
 
-        <div>
+        <div className='flex gap-[1rem] items-center'>
+            <img src={img} className='w-[2rem] rounded-[10px]'/>
             <p>{name}</p>
         </div>
     </div>

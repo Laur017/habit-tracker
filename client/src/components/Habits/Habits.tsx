@@ -4,17 +4,42 @@ import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
 import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
-import { useParams, useLocation } from "react-router-dom"
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Habits() {
-    const location = useLocation();
-    const data = location.state?.data;
-    console.log("h", data)
+  const { access_token } = useParams();
+  const [user,setUser] = useState();
+  console.log(access_token)
+  
+  useEffect(() => {
+    axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data.name);
+            setUser(res.data)
+          } else {
+            console.log('Name not available');
+          }  
+        })
+        .catch((err) => console.log(err));
+  },[access_token])
+
+  useEffect(() => {
+    console.log(user)
+  },[user])
+
     const dragItem = useRef()
     const dragOverItem = useRef()
-    const { name} = useParams()
     const [addBtn, setAddBtn] = useState<boolean>(false)
     const [habits, setHabits] = useState<{habit:string, color:number}[]>([])
     const [hbt, setHbt] = useState<string>('')
@@ -97,12 +122,17 @@ export default function Habits() {
 
   return (
     <div className="h-[100%] w-[100%]">
-        {name && 
+        {user && 
         <div className="flex h-[100%] w-[100%]">
-            <Left name={name} pannel={2} data ={data}/>
+            <Left 
+            access_token={access_token} 
+            name={user.name} 
+            pannel={2}
+            img={user.picture}
+          />
             <div className="habits-div p-[5%] w-[80%]">
               <div className="top-hab-div flex w-[100%]">
-                <h2>Habits List {data && data.name}</h2>
+                <h2>Habits List of {user.name} </h2>
                 <button className='add-hab-btn' onClick={() => setAddBtn(true)}>+ Add Habit</button>
               </div>
               {habits && 
