@@ -4,7 +4,7 @@ import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
 import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
-import { collection, addDoc, deleteDoc, doc, setDoc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -44,6 +44,30 @@ export default function Habits() {
     const [indxToEdit, setIndxToEdit] = useState<number>(0)
 
     const azi = new Date();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        try {
+          const docRef = doc(db, "habits", user.id);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            console.log(data)
+            setHabits(data.habit)
+          } else {
+            console.log("No such document exists");
+          }
+        } catch (error) {
+          console.error("Error getting document:", error);
+        }
+      }
+    };
+    
+    fetchData();
+  }, [user]);
+     
 
     const dragStart = (position) => {
       dragItem.current = position
@@ -127,7 +151,9 @@ export default function Habits() {
 
   return (
     <div className="h-[100%] w-[100%]">
+    
         {user && 
+
         <div className="flex h-[100%] w-[100%]">
             <Left 
             access_token={access_token} 
