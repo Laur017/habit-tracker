@@ -4,7 +4,7 @@ import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
 import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -34,10 +34,6 @@ export default function Habits() {
         .catch((err) => console.log(err));
   },[access_token])
 
-  useEffect(() => {
-    console.log(user)
-  },[user])
-
     const dragItem = useRef()
     const dragOverItem = useRef()
     const [addBtn, setAddBtn] = useState<boolean>(false)
@@ -47,9 +43,14 @@ export default function Habits() {
     const [edit, setEdit] = useState<boolean>(false)
     const [indxToEdit, setIndxToEdit] = useState<number>(0)
 
+    const azi = new Date();
+
     const dragStart = (position) => {
       dragItem.current = position
     }
+    useEffect(() => {
+      console.log(Array(habits.length).fill(0))
+    },[habits])
 
     const dragEnter = (position) => {
       dragOverItem.current = position
@@ -105,15 +106,19 @@ export default function Habits() {
     const addToDb = async (e) => {
       e.preventDefault()
 
+      
+
       try{
-        const docRef = await addDoc(collection(db, "habits"), {
-          user: '001',
-          habit: 'eat',
-          order: 1,
-          date: 14,
-          checked: false
+        const docRef = doc(db, "habits", user.id)
+
+        await deleteDoc(docRef)
+
+        await setDoc(docRef,{
+          habit: habits,
+          date: azi.getDate(),
+          checked: Array(habits.length).fill(0)
         });
-        console.log("Document written with ID: ", docRef.id)
+        console.log("Document written with ID: ")
       } catch (e) {
         console.log("Error adding document: ", e)
       }
@@ -132,7 +137,7 @@ export default function Habits() {
           />
             <div className="habits-div p-[5%] w-[80%]">
               <div className="top-hab-div flex w-[100%]">
-                <h2>Habits List of {user.name} </h2>
+                <h2>Habits List </h2>
                 <button className='add-hab-btn' onClick={() => setAddBtn(true)}>+ Add Habit</button>
               </div>
               {habits && 
