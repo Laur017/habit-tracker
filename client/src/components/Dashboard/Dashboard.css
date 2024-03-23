@@ -214,6 +214,29 @@
     cursor: move;
 }
 
+.mid-dash .habits-list-div {
+    cursor: default;
+}
+
+.checked-btn{
+    background-color: #fff;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 3px 10px #23232368;
+}
+
+.checked-btn-check{
+    background-color: rgba(2, 181, 2, 0.588);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    box-shadow: 2px 3px 10px rgba(2, 181, 2, 0.588);
+}
+
 .save-changes-btn{
     border: 1px solid #232323;
     padding: 0.5rem 0;

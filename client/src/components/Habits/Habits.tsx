@@ -4,7 +4,7 @@ import Edit from '../../assets/icons/edit.png'
 import '../Dashboard/Dashboard.css'
 import Left from "../Dashboard/Left"
 import AddHabitCard from './AddHabitCard'
-import { collection, addDoc, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore'
+import {deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'

@@ -45,7 +45,7 @@ export default function Main() {
             img={user.picture}
 
           />
-          <Mid />
+          <Mid id={user.id}/>
           <Right />
         </div>
       }
