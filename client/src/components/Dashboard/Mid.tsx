@@ -25,6 +25,8 @@ export default function Mid({id}:Props) {
             const data = docSnap.data();
             console.log(data)
             setHabits(data.habit)
+            data.date !== (new Date()).getDate() ?
+            setCheckedHab(Array(data.habit.length).fill(0)) :
             setCheckedHab(data.checked)
           } else {
             console.log("No such document exists");
@@ -47,7 +49,8 @@ export default function Mid({id}:Props) {
       
       const docRef = doc(db, "habits", id);
       await updateDoc(docRef,{
-        checked:aux
+        checked:aux,
+        date:(new Date()).getDate()
       })
     } catch (error){
       console.error("Eroare la update-ul file-ului", error)
