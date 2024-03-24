@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Dashboard.css'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 
 interface Props {
@@ -38,10 +38,21 @@ export default function Mid({id}:Props) {
     fetchData();
   }, []);
 
-  const handleChecked =(indx:number) => {
-    const aux = [...checkedHab]
-    aux[indx] = checkedHab[indx] === 0 ? 1 : 0;
-    setCheckedHab(aux)
+  const handleChecked = async (indx:number) => {
+    try{
+
+      const aux = [...checkedHab]
+      aux[indx] = checkedHab[indx] === 0 ? 1 : 0;
+      setCheckedHab(aux)
+      
+      const docRef = doc(db, "habits", id);
+      await updateDoc(docRef,{
+        checked:aux
+      })
+    } catch (error){
+      console.error("Eroare la update-ul file-ului", error)
+    }
+
   }
 
   return (
