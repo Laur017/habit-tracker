@@ -12,6 +12,7 @@ export default function Mid({id}:Props) {
   const month = today.toLocaleString('default', { month: 'long' })
   const date = today. getDate()
   const [habits, setHabits] = useState()
+  const [checkedHab, setCheckedHab] = useState()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +25,7 @@ export default function Mid({id}:Props) {
             const data = docSnap.data();
             console.log(data)
             setHabits(data.habit)
+            setCheckedHab(data.checked)
           } else {
             console.log("No such document exists");
           }
@@ -35,6 +37,12 @@ export default function Mid({id}:Props) {
     
     fetchData();
   }, []);
+
+  const handleChecked =(indx:number) => {
+    const aux = [...checkedHab]
+    aux[indx] = checkedHab[indx] === 0 ? 1 : 0;
+    setCheckedHab(aux)
+  }
 
   return (
     <div className="w-[60%] p-[5%]">
@@ -50,7 +58,7 @@ export default function Mid({id}:Props) {
               <div className='bottom-hab-div mt-[5%] flex flex-col gap-[1rem]'>
                 {habits.map((i,indx) => 
                 <div className='flex w-[100%] items-center gap-[1rem]'>
-                <div className="checked-btn-check flex items-center justify-center">✔</div>
+                <div className={`${checkedHab[indx] === 0 ? "checked-btn":"checked-btn-check"}  flex items-center justify-center`} onClick={() => handleChecked(indx)}>{checkedHab[indx] === 0 ? "":"✓"}</div>
                 <div className='habits-list-div flex items-center' key={indx}>
                   
                   <div className='flex items-center gap-[1rem] h-[100%]'>
